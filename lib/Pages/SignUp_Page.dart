@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Widgets/round_button.dart';
+import 'Home_page.dart';
 import 'LogIn_page.dart';
 
 class SignupPage extends StatefulWidget {
@@ -21,8 +22,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -53,7 +53,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 SizedBox(height: 40),
-        
+
                 // Full Name TextField
                 TextFormField(
                   controller: fullNameController,
@@ -114,25 +114,37 @@ class _SignupPageState extends State<SignupPage> {
                   },
                 ),
                 SizedBox(height: 40),
-                RoundButton(
-                    title: 'LogIn',
-                    onTap: () {
-                      if (_formKey.currentState?.validate() == true) {
-                        print("'Account created successfully!");
-                        login();
-                      }
-                    }),
-                SizedBox(height: 200,),
+
+                GestureDetector(
+                  onTap: () {
+                    // Validate the form before navigation
+                    if (_formKey.currentState?.validate() == true) {
+                      // If valid, navigate to HomePage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    }
+                  },
+                  child: RoundButton(
+                    title: 'Sign Up',  // Changed this to reflect the correct action
+                    onTap: () {},
+                  ),
+                ),
+                SizedBox(height: 200),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 65),
                   child: Row(
                     children: [
-                      Text('I am already a member,', style: TextStyle(
-                    fontSize: 13.0, // font size
-                    fontWeight: FontWeight.bold, // font weight
-                    color: Colors.black54,
-                    fontFamily: 'Roboto', // font family
-                  ),),
+                      Text(
+                        'I am already a member,',
+                        style: TextStyle(
+                          fontSize: 13.0, // font size
+                          fontWeight: FontWeight.bold, // font weight
+                          color: Colors.black54,
+                          fontFamily: 'Roboto', // font family
+                        ),
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -150,10 +162,9 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                       ),
-        
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -162,5 +173,7 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  void login() {}
+  void login() {
+    // If you need further logic for login, you can add it here.
+  }
 }

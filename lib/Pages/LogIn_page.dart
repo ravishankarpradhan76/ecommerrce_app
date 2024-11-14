@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../Widgets/round_button.dart';
+import 'Home_page.dart';
 import 'SignUp_Page.dart';
 
 class LogInPage extends StatefulWidget {
@@ -43,7 +44,7 @@ class _LogInPageState extends State<LogInPage> {
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(requestBody),
       );
-      print(response.body.toString()); // Simulating a network call
+      print(response.body.toString()); // नेटवर्क कॉल को दिखाने के लिए
       setState(() {
         isLoading = false;
       });
@@ -53,10 +54,16 @@ class _LogInPageState extends State<LogInPage> {
           responseMessage = "Login Successful. Token: ${data['token']}";
         });
         showToast(context, responseMessage, Colors.green);
+
+        // लॉगिन सफल होने के बाद नेविगेट करें
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),  // HomePage पर नेविगेट करें
+        );
       } else {
         var errorResponse = jsonDecode(response.body);
         setState(() {
-          responseMessage = errorResponse['error']; // Display error message
+          responseMessage = errorResponse['error']; // एरर मेसेज दिखाएं
         });
         showToast(context, responseMessage, Colors.red);
       }
@@ -154,6 +161,14 @@ class _LogInPageState extends State<LogInPage> {
                     child: Text('Forgot Password?',style: TextStyle(fontWeight: FontWeight.w700),),
                   ),
                   const SizedBox(height: 50),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
+                child:
                   RoundButton(
                       title: 'LogIn',
                       onTap: () {
@@ -161,7 +176,7 @@ class _LogInPageState extends State<LogInPage> {
                           print("You tapped on login button");
                           login();
                         }
-                      }),
+                      }),),
                   SizedBox(height: 200,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 65),
