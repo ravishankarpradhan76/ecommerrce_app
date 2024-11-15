@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Home_page.dart';
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -10,10 +12,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // List of widgets for each tab
   final List<Widget> _pages = [
-    Center(child: Text('Home Page')),
+    HomePage(),
     Center(child: Text('Explore Page')),
     Center(child: Text('Search Page')),
     Center(child: Text('Profile Page')),
+    Center(child: Text('Menu Page')),
   ];
 
   void _onItemTapped(int index) {
@@ -25,9 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Flutter Bottom Navigation Bar"),
-      ),
+      appBar: AppBar(),
       body: _pages[_selectedIndex], // Display selected page
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex, // Highlight selected index
