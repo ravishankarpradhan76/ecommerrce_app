@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ecommerrce_app/Modals.dart';
 import '../Widgets/round_button.dart';
-import 'LogIn_page.dart'; // Assuming Modals class is present
+import 'LogIn_page.dart';
 
 class CartPage extends StatefulWidget {
   final List<Modals> cartItems; // This will hold the items passed from HomePage
