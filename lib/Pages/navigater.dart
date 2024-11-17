@@ -13,26 +13,27 @@ class Navigater extends StatefulWidget {
 class _NavigaterState extends State<Navigater> {
   int _selectedIndex = 0;
 
-  List<Widget>pages  =[
+  List<Widget> pages = [
     HomePage(),
     ProfilePage(),
   ];
 
-  void _onItemTapped(int index){
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-body: pages[_selectedIndex],
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        items:const <BottomNavigationBarItem> [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -54,4 +55,3 @@ body: pages[_selectedIndex],
     );
   }
 }
-
