@@ -1,3 +1,4 @@
+import 'package:ecommerrce_app/Pages/razorpay_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerrce_app/Modals.dart';
 import '../Widgets/round_button.dart';
@@ -32,7 +33,7 @@ class _CartPageState extends State<CartPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LogInPage(), // Navigate to the CheckoutPage
+        builder: (context) => RazorpayPayment(), // Navigate to the CheckoutPage
       ),
     );
   }

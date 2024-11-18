@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'Home_page.dart';
 import 'Profile_Page.dart';
+import 'menu_page.dart';
 
 class Navigater extends StatefulWidget {
   const Navigater({super.key});
@@ -16,6 +17,7 @@ class _NavigaterState extends State<Navigater> {
   List<Widget> pages = [
     HomePage(),
     ProfilePage(),
+    MenuPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -37,10 +39,6 @@ class _NavigaterState extends State<Navigater> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_rounded),
