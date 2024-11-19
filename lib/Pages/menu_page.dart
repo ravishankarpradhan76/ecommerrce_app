@@ -10,18 +10,17 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  List<UserModel> userList = [];
+  // List to hold product data
+  List<dynamic> products = [];
 
-  // Function to fetch the API data
   Future<void> getUserApi() async {
-    final response = await http.get(Uri.parse('https://fakestoreapi.com/products'));
+  final response = await http.get(Uri.parse('https://api.escuelajs.co/api/v1/products'));
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+      // Decode and assign the data to the products list
       setState(() {
-        userList = data.map<UserModel>((item) => UserModel.fromJson(item)).toList();
+        products = jsonDecode(response.body.toString());
       });
     } else {
-      // Handle error if API request fails
       print('Failed to load data');
     }
   }
@@ -29,64 +28,64 @@ class _MenuPageState extends State<MenuPage> {
   @override
   void initState() {
     super.initState();
-    getUserApi();
+    getUserApi();  // Fetch data when the page is initialized
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal[200],
-        title: Text('Menu Page'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: FutureBuilder(
-              future: getUserApi(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: userList.length,
-                    itemBuilder: (context, index) {
-                      final user = userList[index];
-                      return ListTile(
-                        leading: Image.network(user.imageUrl, width: 50, height: 50, fit: BoxFit.cover),
-                        title: Text(user.title),
-                        subtitle: Text('\$${user.price.toString()}'),
-                        onTap: () {
-                          // Handle item tap if needed
-                        },
-                      );
-                    },
-                  );
-                } else {
-                  return Center(child: Text('Failed to load data'));
-                }
-              },
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            decoration: InputDecoration(
+              hintText: 'Search or ask a questi...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10)
+                ),
+              filled: true,
+              fillColor: Colors.white
             ),
           ),
-        ],
+        ),
+        actions: [ Icon(Icons.qr_code_2_sharp),],
+        backgroundColor: Colors.teal[200],
+
       ),
-    );
-  }
-}
+      body: products.isEmpty?
+      Center(child: CircularProgressIndicator()):
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder( gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // 2 items per row
+            crossAxisSpacing: 5, // Spacing between columns
+            mainAxisSpacing: 5, // Spacing between rows
+            childAspectRatio: 1,),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            var product = products[index];
+            return Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10), // Rounded corners
+            side: BorderSide(
+            color: Colors.teal, // Outline color
+            width: 1, // Outline width
+            ),
+            ),
 
-class UserModel {
-  final String title;
-  final String imageUrl;
-  final double price;
-
-  UserModel({required this.title, required this.imageUrl, required this.price});
-
-  // Factory method to convert JSON data to UserModel
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      title: json['title'] ?? 'No Title',
-      imageUrl: json['image'] ?? '',
-      price: json['price']?.toDouble() ?? 0.0,
+              child: ListTile(
+                title: Column(
+                  children: [
+                    Text(product['title'].toString()),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
