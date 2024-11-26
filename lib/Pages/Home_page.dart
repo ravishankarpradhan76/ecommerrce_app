@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Navigate to CartPage
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -113,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     itemCount: postList.length,
                     itemBuilder: (context, index) {
                       var product = postList[index];
-                      bool isInCart = isItemInCart(index);  // Check cart status by index
+                      bool isInCart = isItemInCart(index);
 
                       return Padding(
                         padding: const EdgeInsets.all(8.0),

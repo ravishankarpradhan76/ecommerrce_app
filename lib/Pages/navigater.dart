@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'Home_page.dart';
 import 'Profile_Page.dart';
+import 'explore_page.dart';
 import 'menu_page.dart';
 
 class Navigater extends StatefulWidget {
@@ -16,6 +17,7 @@ class _NavigaterState extends State<Navigater> {
 
   List<Widget> pages = [
     HomePage(),
+    ExplorePage(),
     ProfilePage(),
     MenuPage(),
   ];
@@ -38,6 +40,10 @@ class _NavigaterState extends State<Navigater> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore_outlined),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_rounded),

@@ -11,11 +11,11 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   List<dynamic> products = [];
-  int? _expandedIndex; // To track which card is expanded
+  int? _expandedIndex;
 
   Future<void> getUserApi() async {
     final response =
-        await http.get(Uri.parse('https://api.escuelajs.co/api/v1/products'));
+    await http.get(Uri.parse('https://api.escuelajs.co/api/v1/products'));
     if (response.statusCode == 200) {
       setState(() {
         products = jsonDecode(response.body.toString());
@@ -82,68 +82,68 @@ class _MenuPageState extends State<MenuPage> {
       body: products.isEmpty
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 5,
-                        childAspectRatio: 1,
-                      ),
-                      itemCount: products.where((product) => product['title'].toLowerCase().contains(searchQuery.toLowerCase())).toList().length,
-                      itemBuilder: (context, index) {
-                        var product = products.where((product) => product['title'].toLowerCase().contains(searchQuery.toLowerCase())).toList()[index];
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 48,
+                  childAspectRatio: 1,
+                ),
+                itemCount: products.where((product) => product['title'].toLowerCase().contains(searchQuery.toLowerCase())).toList().length,
+                itemBuilder: (context, index) {
+                  var product = products.where((product) => product['title'].toLowerCase().contains(searchQuery.toLowerCase())).toList()[index];
 
-                        return Column(
-                          children: [
-                            Card(
-                              elevation: 1,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(
-                                  color: Colors.teal,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      product['title'].toString(),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    SizedBox(height: 8),
-                                    ClipOval(
-                                      child: Image(
-                                        image:
-                                            NetworkImage(product['images'][0]),
-                                        height: 95,
-                                        width: 100,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                  return Column(
+                    children: [
+                          Card(
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(
+                                color: Colors.teal,
+                                width: 1,
                               ),
                             ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    product['title'].toString(),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(height: 8),
+                                  ClipOval(
+                                    child: Image(
+                                      image:
+                                      NetworkImage(product['images'][0]),
+                                      height: 85,
+                                      width: 85,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                    ],
+                  );
+                },
               ),
-            ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
