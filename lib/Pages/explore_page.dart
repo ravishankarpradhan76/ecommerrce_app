@@ -85,6 +85,7 @@ class _ExplorePageState extends State<ExplorePage> {
               itemCount: products.length,
               itemBuilder: (context, index) {
                 var product = products[index];
+                String imageUrl = product['image'] ?? 'https://via.placeholder.com/150';
                 return Card(
                   elevation: 1,
                   shape: RoundedRectangleBorder(
@@ -94,38 +95,42 @@ class _ExplorePageState extends State<ExplorePage> {
                       width: 1,
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 100,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(product['image'] ?? 'https://via.placeholder.com/150'),
-                            fit: BoxFit.cover,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(imageUrl),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        product['title'] ?? 'No title available',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                        SizedBox(height: 5),
+                        Text(
+                          product['title'] ?? 'No title available',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        '\$${product['price'] ?? 0}',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 14,
+                        Text(
+                          '\$${product['price'] ?? 0}',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 14,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
