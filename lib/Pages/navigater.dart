@@ -46,10 +46,6 @@ class _NavigaterState extends State<Navigater> {
             label: 'Explore',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_rounded),
             label: 'Profile',
           ),
